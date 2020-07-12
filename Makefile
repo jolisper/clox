@@ -3,8 +3,8 @@ OUTDIR=out
 
 .PHONY: clean outdir
 
-$(OUTDIR)/clox: outdir $(OUTDIR)/main.o $(OUTDIR)/chunk.o $(OUTDIR)/memory.o $(OUTDIR)/debug.o $(OUTDIR)/value.o
-	$(CC) -o $(OUTDIR)/clox $(OUTDIR)/main.o $(OUTDIR)/chunk.o $(OUTDIR)/memory.o $(OUTDIR)/debug.o $(OUTDIR)/value.o
+$(OUTDIR)/clox: outdir $(OUTDIR)/main.o $(OUTDIR)/chunk.o $(OUTDIR)/memory.o $(OUTDIR)/debug.o $(OUTDIR)/value.o $(OUTDIR)/vm.o
+	$(CC) -o $(OUTDIR)/clox $(OUTDIR)/main.o $(OUTDIR)/chunk.o $(OUTDIR)/memory.o $(OUTDIR)/debug.o $(OUTDIR)/value.o $(OUTDIR)/vm.o
 
 outdir:
 	mkdir -p $(OUTDIR)/
@@ -23,6 +23,9 @@ $(OUTDIR)/debug.o: debug.c debug.h
 
 $(OUTDIR)/value.o: value.c value.h
 	$(CC) -o $(OUTDIR)/value.o -c value.c
+
+$(OUTDIR)/vm.o: vm.c vm.h
+	$(CC) -o $(OUTDIR)/vm.o -c vm.c
 
 clean:
 	rm -rf $(OUTDIR)
