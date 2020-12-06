@@ -3,8 +3,8 @@ OUTDIR=out
 
 .PHONY: clean outdir
 
-$(OUTDIR)/clox: outdir $(OUTDIR)/main.o $(OUTDIR)/chunk.o $(OUTDIR)/memory.o $(OUTDIR)/debug.o $(OUTDIR)/value.o $(OUTDIR)/vm.o
-	$(CC) -o $(OUTDIR)/clox $(OUTDIR)/main.o $(OUTDIR)/chunk.o $(OUTDIR)/memory.o $(OUTDIR)/debug.o $(OUTDIR)/value.o $(OUTDIR)/vm.o
+$(OUTDIR)/clox: outdir $(OUTDIR)/main.o $(OUTDIR)/chunk.o $(OUTDIR)/memory.o $(OUTDIR)/debug.o $(OUTDIR)/value.o $(OUTDIR)/vm.o $(OUTDIR)/scanner.o $(OUTDIR)/compiler.o
+	$(CC) -o $(OUTDIR)/clox $(OUTDIR)/main.o $(OUTDIR)/chunk.o $(OUTDIR)/memory.o $(OUTDIR)/debug.o $(OUTDIR)/value.o $(OUTDIR)/vm.o $(OUTDIR)/scanner.o $(OUTDIR)/compiler.o
 
 outdir:
 	mkdir -p $(OUTDIR)/
@@ -26,6 +26,12 @@ $(OUTDIR)/value.o: value.c value.h
 
 $(OUTDIR)/vm.o: vm.c vm.h
 	$(CC) -o $(OUTDIR)/vm.o -c vm.c
+
+$(OUTDIR)/scanner.o: scanner.c scanner.h
+	$(CC) -o $(OUTDIR)/scanner.o -c scanner.c
+
+$(OUTDIR)/compiler.o: compiler.c compiler.h
+	$(CC) -o $(OUTDIR)/compiler.o -c compiler.c
 
 clean:
 	rm -rf $(OUTDIR)
